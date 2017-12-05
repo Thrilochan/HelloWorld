@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-from __future__ import print_function
-
 
 import urllib
 import json
@@ -10,5 +8,8 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
-#flask app should define in globla layout
-app = Flask(__name__)
+# we need to create app in global layout
+
+app = Flask(__name__);
+
+@app.route('/webhook', methods=["POST"])
