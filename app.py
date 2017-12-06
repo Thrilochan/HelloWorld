@@ -18,7 +18,6 @@ def webhook():
     req=json.dumbs(req,indent=4)
     res=webhookresult(req)
     res=json.dumps(res,indent=4)
-    print(res)
     r=make_respone(res)
     r.headers('Content-Type')='application/json'
     return r
@@ -28,7 +27,7 @@ def webhookresult(req):
     res=req.get("result")
     parameters=res.get("parameters")
     name=parameters.get("bankname")
-    interest={"HDFC":"10.99","ICICI":"11.0","SBI":"12","AXIS":"11.5"}
+    interest={'HDFC':'10.99','ICICI':'11.0','SBI':'12','AXIS':'11.5'}
     speech="The interest rate of "+name+" is "+str(interest(name))
     return{
       "speech":speech,
