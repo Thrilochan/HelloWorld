@@ -1,12 +1,5 @@
 #!/usr/bin/env python
-from __future__ import print_function
-from future.standard_library import install_aliases
-install_aliases()
-
-from urllib.parse import urlparse, urlencode
-from urllib.request import urlopen, Request
-from urllib.error import HTTPError
-
+import urllib
 import json
 import os
 
@@ -18,8 +11,8 @@ from flask import make_response
 
 app = Flask(__name__);
 
-@app.route('/webhook', methods=["POST"])
-def webhook():
+@app.route('/webhook', methods=['POST'])
+def webhook():  
     req=request.get_json(silent=True, force=True)
     print(json.dumbs(req,indent=4))
     res=webhookresult(req)
@@ -28,22 +21,24 @@ def webhook():
     r.headers['Content-Type']='application/json'
     return r
 
-def webhookresult(req):
+ """def webhookresult(req):
     if req.get("result").get("action") != "BankInterest"
       return{}
     res=req.get("result")
     parameters=res.get("parameters")
     name=parameters.get("bankname")
     interest={'HDFC':'10.99','ICICI':'11.0','SBI':'12','AXIS':'11.5'}
-    speech="The interest rate of "+name+" is "+str(interest(name))
-    return{
-      "speech":speech,
-      "displayText":speech,
-      "source":"bankinterestapp"
-    }
+    speech="The interest rate of "+name+" is "+str(interest(name))"""
+    def webhookresult(req):
+        return
+        {
+         "speech":"No banks available",
+         "displayText":"No banks available",
+         "source":"bankinterestapp"
+        }
   
   if __name__ == '__main__'
      port=int(os.getenv('PORT',5000))
-     print("App running on port %d" %(port))
+     print("App running on port %d" % port)
      app.run(debug=True, port=port, host='0.0.0.0')
     
