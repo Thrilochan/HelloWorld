@@ -1,7 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import urllib
+from __future__ import print_function
+from future.standard_library import install_aliases
+install_aliases()
+
+from urllib.parse import urlparse, urlencode
+from urllib.request import urlopen, Request
+from urllib.error import HTTPError
+
 import json
 import os
 
@@ -17,7 +24,7 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    print json.dumbs(req, indent=4)
+    print(json.dumbs(req, indent=4))
     res = webhookresult(req)
     res = json.dumps(res, indent=4)
     r = make_respone(res)
