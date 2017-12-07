@@ -24,7 +24,6 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-
 def webhookresult(req):
     if req.get('result').get('action') != 'BankInterest':
         return {}
@@ -37,14 +36,14 @@ def webhookresult(req):
         'SBI': '12',
         'AXIS': '11.5',
         }
-    speech = 'The interest rate of ' + name + ' is ' \
-        + str(interest(name))
+    speech = 'The interest rate of ' + name + ' is '+str(interest[name])
     return
-
-    {'speech': speech, 'displayText': speech,
-     'source': 'bankinterestapp'}
-
-
+    {
+        'speech': speech,
+        'displayText': speech,
+        'source': 'bankinterestapp'
+    }
+    
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print 'App running on port %d' % port
