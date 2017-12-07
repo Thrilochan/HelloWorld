@@ -38,11 +38,11 @@ def webhookresult(req):
     interest={'HDFC':'10.99','ICICI':'11.0','SBI':'11.5'}
     speech="The interest rate of "+name+" is "+str(interest[name])
     return{
-        'speech':speech
-        'dispalyText':speech
-        'source':'BankInterestApp'
+        'speech': speech,
+        'dispalyText': speech,
+        'source': 'BankInterestApp',
     }
-int __name__ == '__main__':
+if __name__ == '__main__':
     port=int(os.getenv('PORT', 5000))
     print("App is running on port %d" % port)
     app.run(debug=False, port=port, host='0.0.0.0')
