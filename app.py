@@ -30,22 +30,31 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 def webhookresult(req):
-    if req.get("result").get("action") != "BankInterest":
+    if req.get("result").get("action") == "BankInterest":
+        res=req.get("result")
+        parameters=res.get("parameters")
+        name=parameters.get("bankname")
+        interest={'HDFC':'10.99','ICICI':'11.0','SBI':'11.5'}
+        speech="The interest rate of "+name+" is "+str(interest[name])
+        return{
+            'speech': speech,
+            'dispalyText': speech,
+            'source': 'BankInterestApp',
+        }
+    elif req.get("result").get("action") == "MinBalanceDetails":
+        res=req.get("result")
+        parameters=res.get("parameters")
+        name=parameters.get("bankname")
+        minbalance={'HDFC':'5000','SBI':'1000','ICICI':'10000'}
+        speech="The minimum balance amount for "+name+" is "+str(minbalance[name])
+        return{
+            'speech':speech,
+            'displayText':speech,
+            'source':'BankMinbalance details app'
+            }
+    else:
         return{}
-    res=req.get("result")
-    parameters=res.get("parameters")
-    name=parameters.get("bankname")
-    interest={'HDFC':'10.99','ICICI':'11.0','SBI':'11.5'}
-    speech="The interest rate of "+name+" is "+str(interest[name])
-    return{
-        'speech': speech,
-        'dispalyText': speech,
-        'source': 'BankInterestApp',
-    }
 if __name__ == '__main__':
     port=int(os.getenv('PORT', 5000))
     print("App is running on port %d" % port)
     app.run(debug=False, port=port, host='0.0.0.0')
-              
-    
-    
