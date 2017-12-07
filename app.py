@@ -30,21 +30,14 @@ def webhookresult(req):
     res = req.get('result')
     parameters = res.get('parameters')
     name = parameters.get('bankname')
-    interest = {
-        'HDFC': '10.99',
-        'ICICI': '11.0',
-        'SBI': '12',
-        'AXIS': '11.5',
-        }
-    speech = 'The interest rate of ' + name + ' is '+str(interest[name])
-    return
-    {
+    interest = {'HDFC': '10.99','ICICI': '11.0','SBI': '12','AXIS': '11.5'}
+    speech = "The interest rate of " + name + " is "+str(interest[name])
+    return{
         'speech': speech,
         'displayText': speech,
-        'source': 'bankinterestapp'
-    }
+        'source': 'bankinterestapp'}
     
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
-    print 'App running on port %d' % port
+    print ("App running on port %d" % port)
     app.run(debug=false, port=port, host='0.0.0.0')
