@@ -1,5 +1,12 @@
 #!/usr/bin/env python
-import urllib
+from __future__ import print_function
+from future.standard_library import install_aliases
+install_aliases()
+
+from urllib.parse import urlparse, urlencode
+from urllib.request import urlopen, Request
+from urllib.error import HTTPError
+
 import json
 import os
 
@@ -9,7 +16,7 @@ from flask import make_response
 
 # we need to create app in global layout
 
-app = Flask(__name__);
+app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():  
@@ -18,7 +25,7 @@ def webhook():
     res=webhookresult(req)
     res=json.dumps(res,indent=4)
     r=make_respone(res)
-    r.headers['Content-Type']='application/json'
+    r.headers['Content-Type'] = 'application/json'
     return r
 
 def webhookresult(req):
