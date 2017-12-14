@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 
 import json
 import os
+import requests
 
 from flask import Flask
 from flask import request
@@ -51,6 +52,28 @@ def webhookresult(req):
             'speech':speech,
             'displayText':speech,
             'source':'BankMinbalance details app'
+            }
+    elif req.get("result").get("action") == "Createincident":
+        url = 'https://dev34996.service-now.com/api/now/table/incident'
+        # Eg. User name="admin", Password="admin" for this code sample.
+        user = 'admin'
+        pwd = 'Thrill@4a4'
+        # Set proper headers
+        headers = {"Content-Type":"application/json","Accept":"application/json"}
+        data='{"short-description":"sample incident from chatbot api"}'
+        # Do the HTTP request
+        response = requests.post(url, auth=(user, pwd), headers=headers, data=data)
+        # Check for HTTP codes other than 201
+        if response.status_code != 201:
+            resul='failed'
+            return resul
+        # Decode the JSON response into a dictionary and use the data
+        data = response.json()
+        incident=data.get("result").get("number")
+        return{
+            'speech':incident,
+            'displayText':incident,
+            'source':'Service Now Integration App'
             }
     else:
         return{}
