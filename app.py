@@ -59,8 +59,8 @@ def webhookresult(req):
         user = 'admin'
         pwd = 'Thrill@4a4'
         # Set proper headers
-        headers = {"Content-Type":"application/json","Accept":"application/json"}
-        data='{"short-description":"sample incident from chatbot api"}'
+        headers = {'Content-Type':'application/json','Accept':'application/json'}
+        data='{\"short-description\":\"sample incident from chatbot api\"}'
         # Do the HTTP request
         response = requests.post(url, auth=(user, pwd), headers=headers, data=data)
         # Check for HTTP codes other than 201
